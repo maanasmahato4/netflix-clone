@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema(
 		},
 		image: {
 			type: String,
-			required: true,
 			default: '',
 		},
 		email: {
@@ -174,11 +173,14 @@ const movieSchema = new mongoose.Schema(
 	{ timestamps: true },
 );
 
-export const UserModel = mongoose.model('User', UserSchema);
-export const AccountModel = mongoose.model('Account', accountSchema);
-export const SessionModel = mongoose.model('Session', sessionSchema);
-export const verificationModel = mongoose.model(
-	'Verification',
-	verificationSchema,
-);
-export const MovieModel = mongoose.model('Movie', movieSchema);
+export const UserModel =
+	mongoose.models.User || mongoose.model('User', UserSchema);
+export const AccountModel =
+	mongoose.models.Account || mongoose.model('Account', accountSchema);
+export const SessionModel =
+	mongoose.models.Session || mongoose.model('Session', sessionSchema);
+export const verificationModel =
+	mongoose.models.Verification ||
+	mongoose.model('Verification', verificationSchema);
+export const MovieModel =
+	mongoose.models.Movie || mongoose.model('Movie', movieSchema);
