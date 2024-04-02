@@ -10,3 +10,9 @@ export interface UserCreds {
 	email: string;
 	password: string;
 }
+
+export interface SessionUser {
+	name: string;
+	email: string;
+	image: string;
+}

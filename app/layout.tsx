@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import AuthSessionProvider from '@/components/auth-session-provider';
 import NavBar from '@/components/navbar';
+import { LayoutContextProvider } from '@/context/layout-context';
+import LayoutWrapper from '@/components/layout-wrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,10 +20,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' className='dark'>
-			<body className={inter.className}>
-				<NavBar />
-				<AuthSessionProvider>{children}</AuthSessionProvider>
-			</body>
+			<LayoutContextProvider>
+				<body className={inter.className}>
+					<AuthSessionProvider>
+						<LayoutWrapper>{children}</LayoutWrapper>
+					</AuthSessionProvider>
+				</body>
+			</LayoutContextProvider>
 		</html>
 	);
 }

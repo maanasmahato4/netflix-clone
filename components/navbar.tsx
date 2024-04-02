@@ -1,7 +1,8 @@
+'use client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { Bell, Search } from 'lucide-react';
+import { Bell, Search, Menu } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,13 +12,26 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import logo from '@/public/images/logo.png';
 import Image from 'next/image';
-export default async function NavBar() {
-	const session = await getServerSession(authOptions);
+import MobileNavBar from './mobile-nav';
+import { useContext } from 'react';
+import { LayoutContext } from '@/context/layout-context';
+import { useSession } from 'next-auth/react';
+
+export default function NavBar() {
+	const { data: session } = useSession({ required: true });
+	const { mobileMenuHidden, setMobileMenuHidden } = useContext(LayoutContext);
+
+	function toggleMobileMenu() {
+		setMobileMenuHidden(!mobileMenuHidden);
+	}
 	return (
 		<header className=' text-gray-100'>
 			<nav className='flex w-full items-center justify-between px-10 py-4'>
-				<Image src={logo} alt='NETFLIX' className='h-6 w-16' />
-				<div className='flex gap-10'>
+				<Image src={logo} alt='NETFLIX' className='h-6 w-16' priority />
+				<span onClick={toggleMobileMenu} className='lg:hidden'>
+					<Menu />
+				</span>
+				<div className='hidden gap-10 lg:flex'>
 					<Link className='nav-link' href='/'>
 						Home
 					</Link>
@@ -37,7 +51,7 @@ export default async function NavBar() {
 						Browse by languages
 					</Link>
 				</div>
-				<div className='flex items-center gap-5'>
+				<div className='hidden items-center gap-5 lg:flex'>
 					<span className='cursor-pointer'>
 						<Search />
 					</span>
@@ -68,6 +82,7 @@ export default async function NavBar() {
 					)}
 				</div>
 			</nav>
+			<MobileNavBar hidden={mobileMenuHidden} />
 		</header>
 	);
 }
