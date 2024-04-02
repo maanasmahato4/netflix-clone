@@ -15,7 +15,7 @@ export const LayoutContext = createContext<LayoutContextProps>({
 export const LayoutContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [mobileMenuHidden, setMobileMenuHidden] = useState<boolean>(false);
+	const [mobileMenuHidden, setMobileMenuHidden] = useState<boolean>(true);
 	const LayoutContextValues = {
 		mobileMenuHidden,
 		setMobileMenuHidden,

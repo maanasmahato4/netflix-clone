@@ -7,7 +7,7 @@ interface MobileNavProps {
 const MobileNavBar: React.FC<MobileNavProps> = ({ hidden }) => {
 	return (
 		<div
-			className={`${hidden ? 'hidden' : 'flex'} h-full flex-col gap-5 px-8 text-center`}
+			className={`transition-all duration-300 ease-out ${hidden ? 'hidden' : 'flex'} h-full flex-col gap-5 px-8 text-center`}
 		>
 			<Link className='nav-link' href='/'>
 				Home
