@@ -16,7 +16,7 @@ export default function BillBoard() {
 		console.error(error);
 	}
 	return (
-		<div className='relative h-[50vh] bg-white'>
+		<div className='relative h-[56.25vw] lg:h-full'>
 			{isLoading ? (
 				<p color='black'>loading...</p>
 			) : (
@@ -29,11 +29,16 @@ export default function BillBoard() {
 						src={data.videoUrl}
 						className='h-full w-full object-cover brightness-50 transition duration-500'
 					/>
-					<div className='absolute top-[20%] ml-[7%] flex w-[70%] flex-col gap-y-4'>
-						<h3 className='text-5xl font-bold'>{data.title}</h3>
-						<p className='tex-md'>{data.description}</p>
+					<div className='absolute top-[10%] ml-[7%] flex w-[70%] flex-col gap-y-4 md:top-[30%]'>
+						<h3 className='text-xl font-bold md:text-3xl lg:text-5xl'>
+							{data.title}
+						</h3>
+						<p className='text-xs md:text-sm'>{data.description}</p>
 						<div>
-							<Button className='flex flex-row items-center gap-x-2 bg-slate-300'>
+							<Button
+								size={'sm'}
+								className='flex flex-row items-center gap-x-2 bg-slate-300'
+							>
 								<InfoIcon />
 								More Info
 							</Button>
