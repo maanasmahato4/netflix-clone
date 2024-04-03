@@ -22,9 +22,7 @@ export default function RootLayout({
 		<html lang='en' className='dark'>
 			<LayoutContextProvider>
 				<body className={inter.className}>
-					<AuthSessionProvider>
-						<LayoutWrapper>{children}</LayoutWrapper>
-					</AuthSessionProvider>
+					<AuthSessionProvider>{children}</AuthSessionProvider>
 				</body>
 			</LayoutContextProvider>
 		</html>
