@@ -16,7 +16,7 @@ export default function BillBoard() {
 		console.error(error);
 	}
 	return (
-		<div className='relative h-[56.25vw] lg:h-full'>
+		<div className='relative h-[56.25vw] lg:h-[30vw]'>
 			{isLoading ? (
 				<p color='black'>loading...</p>
 			) : (
