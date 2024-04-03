@@ -16,3 +16,13 @@ export interface SessionUser {
 	email: string;
 	image: string;
 }
+
+export interface Movie {
+	_id?: string;
+	title: string;
+	description: string;
+	duration: string;
+	genre: string;
+	thumbnailUrl: string;
+	videoUrl: string;
+}

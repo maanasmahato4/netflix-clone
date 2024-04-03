@@ -24,7 +24,6 @@ export default function NavBar() {
 		setMobileMenuHidden(!mobileMenuHidden);
 	}
 
-	console.log(showBackGround);
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY >= 60) {
