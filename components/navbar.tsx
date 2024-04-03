@@ -11,19 +11,40 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import logo from '@/public/images/logo.png';
 import Image from 'next/image';
 import MobileNavBar from './mobile-nav';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LayoutContext } from '@/context/layout-context';
 import { useSession } from 'next-auth/react';
 
 export default function NavBar() {
 	const { data: session } = useSession({ required: true });
 	const { mobileMenuHidden, setMobileMenuHidden } = useContext(LayoutContext);
+	const [showBackGround, setShowBackGround] = useState<boolean>(false);
 
 	function toggleMobileMenu() {
 		setMobileMenuHidden(!mobileMenuHidden);
 	}
+
+	console.log(showBackGround);
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY >= 60) {
+				setShowBackGround(true);
+			} else {
+				setShowBackGround(false);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	return (
-		<header className=' text-gray-100'>
+		<header
+			className={`sticky top-0 text-gray-100 transition-colors duration-500 ${showBackGround ? 'bg-black' : 'bg-transparent'}`}
+		>
 			<nav className='flex w-full items-center justify-between px-16 py-4'>
 				<Image src={logo} alt='NETFLIX' className='h-6 w-16' priority />
 				<span onClick={toggleMobileMenu} className='lg:hidden'>

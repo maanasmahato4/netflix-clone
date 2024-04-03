@@ -7,7 +7,12 @@ async function Home() {
 	if (!session) {
 		redirect('/auth');
 	}
-	return <div>Home</div>;
+	return (
+		<div>
+			<div className='h-screen'>hs</div>
+			<div className='h-screen'>hs</div>
+		</div>
+	);
 }
 
 export default Home;

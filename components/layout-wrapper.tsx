@@ -21,6 +21,10 @@ export default function LayoutWrapper({
 		if (screenWidth >= 1024) {
 			setMobileMenuHidden(true);
 		}
+
+		return () => {
+			window.removeEventListener('resize', handleScreenResize);
+		};
 	}, [screenWidth, setMobileMenuHidden]);
 	return (
 		<div>
