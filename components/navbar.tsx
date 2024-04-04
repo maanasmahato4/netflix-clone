@@ -42,7 +42,7 @@ export default function NavBar() {
 
 	return (
 		<header
-			className={`sticky top-0 text-gray-100 transition-colors duration-500 ${showBackGround ? 'bg-black' : 'bg-transparent'}`}
+			className={`sticky top-0 z-10 text-gray-100 transition-colors duration-500 ${showBackGround ? 'bg-black' : 'bg-transparent'}`}
 		>
 			<nav className='flex w-full items-center justify-between px-16 py-4'>
 				<Image src={logo} alt='NETFLIX' className='h-6 w-16' priority />

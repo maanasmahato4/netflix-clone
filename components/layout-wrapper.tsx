@@ -30,7 +30,7 @@ export default function LayoutWrapper({
 		<div>
 			<NavBar />
 			<div
-				className={`${mobileMenuHidden ? 'block' : 'hidden'} overflow-hidden`}
+				className={`${mobileMenuHidden ? 'flex flex-col' : 'hidden overflow-hidden'}`}
 			>
 				{children}
 			</div>

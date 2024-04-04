@@ -16,7 +16,7 @@ export default function BillBoard() {
 		console.error(error);
 	}
 	return (
-		<div className='relative h-[56.25vw] lg:h-[30vw]'>
+		<div className='relative h-[56.25vw]'>
 			{isLoading ? (
 				<p color='black'>loading...</p>
 			) : (
@@ -27,7 +27,7 @@ export default function BillBoard() {
 						muted
 						loop
 						src={data.videoUrl}
-						className='h-full w-full object-cover brightness-50 transition duration-500'
+						className='h-[56.25vw] w-full object-cover brightness-50 transition duration-500'
 					/>
 					<div className='absolute top-[10%] ml-[7%] flex w-[70%] flex-col gap-y-4 md:top-[30%]'>
 						<h3 className='text-xl font-bold md:text-3xl lg:text-5xl'>
