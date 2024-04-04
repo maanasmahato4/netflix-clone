@@ -3,7 +3,6 @@ import { authOptions } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import BillBoard from '@/components/billboard';
 import MoviesList from '@/components/movie-list';
-import useMovieList from '@/hooks/useMovieList';
 
 async function Home() {
 	const session = await getServerSession(authOptions);
