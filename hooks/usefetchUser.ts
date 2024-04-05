@@ -1,4 +1,3 @@
-'use client';
 import useSWR from 'swr';
 import axios, { AxiosResponse } from 'axios';
 
@@ -15,16 +14,16 @@ const fetchUserDetails = async (email: string): Promise<AxiosResponse<any>> => {
 	return response.data;
 };
 
-export const useFetchUserDetails = async (email: string) => {
-	const { data, error, isLoading } = useSWR(fetchUserDetails(email), {
-		revalidateIfStale: false,
-		revalidateOnFocus: false,
-		revalidateOnReconnect: false,
-	});
+export const useFetchUserDetails = (email: string) => {
+	const { data, error, isLoading } = useSWR(
+		email ? ['fetchUserDetails', email] : null,
+		fetchUserDetails,
+		{
+			revalidateIfStale: false,
+			revalidateOnFocus: false,
+			revalidateOnReconnect: false,
+		},
+	);
 
-	return {
-		data,
-		error,
-		isLoading,
-	};
+	return { data, error, isLoading };
 };

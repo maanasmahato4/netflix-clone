@@ -3,7 +3,7 @@ import { Movie } from '@/@types/api';
 import { Card } from './ui/card';
 import { Play, Heart } from 'lucide-react';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -22,16 +22,31 @@ interface HeartIconProps {
 export default function MovieCard({ movie }: MovieCardProps) {
 	const { data: session } = useSession({ required: true });
 
-	/* const { data }: { data: any; error: any; isLoading: boolean } =
-		useFetchUserDetails(session?.user?.email as string);
+	/* const {
+		data,
+		error,
+		isLoading,
+	}: { data: any; error: any; isLoading: boolean } = useFetchUserDetails(
+		session?.user?.email as string,
+	);
 
-	console.log(data); */
+	useEffect(() => {
+		if (!isLoading) {
+			console.log(data.user);
+		}
+	}, [data, isLoading]); */
 
 	const [heartIconProps, setHeartIconProps] = useState<HeartIconProps>({
 		fill: 'none',
 		color: 'white',
 		saved: false,
 	});
+
+	/* useEffect(() => {
+		if (data.favoriteIds.contains(movie._id)) {
+			setHeartIconProps({ fill: 'red', color: 'red', saved: true });
+		}
+	}, [data, movie]); */
 
 	const handleFavorite = useCallback(
 		async (id: string) => {
