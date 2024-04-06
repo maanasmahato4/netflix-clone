@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import axios from 'axios';
+import PlayButton from './playButton';
 interface MovieCardProps {
 	movie: Movie;
 	bookMarkedMovies: string[];
@@ -65,13 +66,7 @@ const MovieCard = ({ movie, bookMarkedMovies }: MovieCardProps) => {
 				priority
 			/>
 			<div className='invisible absolute top-0 flex h-full w-full items-center justify-center group-hover:visible group-hover:cursor-pointer'>
-				<Button
-					variant={'ghost'}
-					color='transparent'
-					onClick={() => console.log('play')}
-				>
-					<Play />
-				</Button>
+				<PlayButton id={movie._id as string} />
 			</div>
 			<div className=' invisible absolute bottom-1 right-1 flex justify-end p-2 transition-transform delay-75 group-hover:visible'>
 				<span

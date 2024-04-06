@@ -34,7 +34,7 @@ export default function FavoritesList() {
 			{isLoading || userIsLoading || !bookMarkedMovies ? (
 				<p>loading...</p>
 			) : (
-				<div className='flex flex-row flex-wrap items-center justify-start gap-4 px-8'>
+				<div className='flex flex-row flex-wrap items-center justify-center gap-4 md:justify-center lg:justify-start lg:gap-2'>
 					{data.map((movie) => {
 						if (bookMarkedMovies.includes(movie._id as string)) {
 							return (

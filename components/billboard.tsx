@@ -4,6 +4,7 @@ import { Movie } from '@/@types/api';
 import useBillBoard from '@/hooks/useBillBoard';
 import { Button } from './ui/button';
 import { InfoIcon } from 'lucide-react';
+import PlayButton from './playButton';
 
 export default function BillBoard() {
 	const {
@@ -34,7 +35,8 @@ export default function BillBoard() {
 							{data.title}
 						</h3>
 						<p className='text-xs md:text-sm'>{data.description}</p>
-						<div>
+						<div className='flex flex-row gap-4'>
+							<PlayButton id={data._id as string} />
 							<Button
 								size={'sm'}
 								className='flex flex-row items-center gap-x-2 bg-slate-300'
