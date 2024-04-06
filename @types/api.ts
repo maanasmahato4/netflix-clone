@@ -1,5 +1,4 @@
 import { NextApiRequest } from 'next';
-import { NextRequest } from 'next/server';
 
 export interface ExtendedNextApiRequest<T = any> extends NextApiRequest {
 	json: () => Promise<T>;

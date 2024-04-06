@@ -5,7 +5,7 @@ import MovieCard from './movie-card';
 import { useState, useEffect } from 'react';
 import { useFetchUserDetails } from '@/hooks/usefetchUser';
 
-export default function MoviesList() {
+export default function FavoritesList() {
 	const {
 		data,
 		error,
@@ -34,15 +34,17 @@ export default function MoviesList() {
 			{isLoading || userIsLoading || !bookMarkedMovies ? (
 				<p>loading...</p>
 			) : (
-				<div className='flex flex-row flex-wrap items-center justify-between gap-4 px-8'>
+				<div className='flex flex-row flex-wrap items-center justify-start gap-4 px-8'>
 					{data.map((movie) => {
-						return (
-							<MovieCard
-								key={movie._id}
-								movie={movie}
-								bookMarkedMovies={bookMarkedMovies}
-							/>
-						);
+						if (bookMarkedMovies.includes(movie._id as string)) {
+							return (
+								<MovieCard
+									key={movie._id}
+									movie={movie}
+									bookMarkedMovies={bookMarkedMovies}
+								/>
+							);
+						}
 					})}
 				</div>
 			)}
