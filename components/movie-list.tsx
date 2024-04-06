@@ -4,6 +4,8 @@ import useMovieList from '@/hooks/useMovieList';
 import MovieCard from './movie-card';
 import { useState, useEffect } from 'react';
 import { useFetchUserDetails } from '@/hooks/usefetchUser';
+import Loader from './loader';
+import { toast } from 'sonner';
 
 export default function MoviesList() {
 	const {
@@ -27,12 +29,13 @@ export default function MoviesList() {
 
 	if (error || userError) {
 		console.log(error, userError);
-		return <div>Error loading movies</div>;
+		toast(`error: ${error.message}`);
+		return <div className='text-center'>Error loading movies...</div>;
 	}
 	return (
 		<div>
 			{isLoading || userIsLoading || !bookMarkedMovies ? (
-				<p>loading...</p>
+				<Loader />
 			) : (
 				<div className='flex flex-row flex-wrap items-center justify-center gap-4 md:justify-center lg:justify-start lg:gap-2'>
 					{data.map((movie) => {

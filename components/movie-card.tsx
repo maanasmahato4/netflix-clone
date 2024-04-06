@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import axios from 'axios';
 import PlayButton from './playButton';
+import { toast } from 'sonner';
 interface MovieCardProps {
 	movie: Movie;
 	bookMarkedMovies: string[];
@@ -45,8 +46,10 @@ const MovieCard = ({ movie, bookMarkedMovies }: MovieCardProps) => {
 
 		try {
 			if (!heartIconProps.saved) {
+				toast('Movie added to bookmarks!');
 				await axios.post(`/api/favorites/${id}`);
 			} else {
+				toast('Movie removed from bookmarks!');
 				await axios.delete(`/api/favorites/${id}`);
 			}
 		} catch (error) {

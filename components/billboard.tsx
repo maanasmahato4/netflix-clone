@@ -5,6 +5,8 @@ import useBillBoard from '@/hooks/useBillBoard';
 import { Button } from './ui/button';
 import { InfoIcon } from 'lucide-react';
 import PlayButton from './playButton';
+import Loader from './loader';
+import { toast } from 'sonner';
 
 export default function BillBoard() {
 	const {
@@ -15,11 +17,12 @@ export default function BillBoard() {
 
 	if (error) {
 		console.error(error);
+		toast(`error: ${error.message}`);
 	}
 	return (
 		<div className='relative h-[56.25vw]'>
 			{isLoading ? (
-				<p color='black'>loading...</p>
+				<Loader />
 			) : (
 				<div>
 					<video

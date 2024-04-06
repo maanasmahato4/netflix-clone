@@ -5,6 +5,7 @@ import AuthSessionProvider from '@/components/auth-session-provider';
 import NavBar from '@/components/navbar';
 import { LayoutContextProvider } from '@/context/layout-context';
 import LayoutWrapper from '@/components/layout-wrapper';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
 			<LayoutContextProvider>
 				<body className={inter.className}>
 					<AuthSessionProvider>{children}</AuthSessionProvider>
+					<Toaster />
 				</body>
 			</LayoutContextProvider>
 		</html>
