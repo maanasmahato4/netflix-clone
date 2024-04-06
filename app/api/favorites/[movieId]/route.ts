@@ -11,7 +11,6 @@ export const POST = async (req: NextApiRequest, context: RouteParams) => {
 	try {
 		const user = await AuthUser();
 		const movieId = context.params.movieId;
-		console.log('add new');
 		if (!movieId) {
 			return new NextResponse(JSON.stringify({ error: 'movie not found' }), {
 				status: 404,
@@ -43,7 +42,6 @@ export const DELETE = async (req: NextApiRequest, context: RouteParams) => {
 	try {
 		const user = await AuthUser();
 		const movieId = context.params.movieId;
-		console.log('delete');
 		if (!movieId) {
 			return new NextResponse(JSON.stringify({ error: 'movie not found' }), {
 				status: 404,
