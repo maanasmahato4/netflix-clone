@@ -26,3 +26,21 @@ export interface Movie {
 	thumbnailUrl: string;
 	videoUrl: string;
 }
+
+export interface User {
+	_id?: string;
+	name: string;
+	image: string;
+	email: string;
+	emailVerified: Date;
+	hashedPassword: string;
+	session: string[];
+	accounts: string[];
+	favoriteIds: string[];
+}
+
+export interface FetcherProps {
+	data: any;
+	error: any;
+	isLoading: boolean;
+}

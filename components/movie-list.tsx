@@ -1,7 +1,9 @@
 'use client';
-import { Movie } from '@/@types/api';
+import { Movie, FetcherProps } from '@/@types/api';
 import useMovieList from '@/hooks/useMovieList';
 import MovieCard from './movie-card';
+import { useState, useEffect } from 'react';
+import { useFetchUserDetails } from '@/hooks/usefetchUser';
 
 export default function MoviesList() {
 	const {
@@ -10,17 +12,37 @@ export default function MoviesList() {
 		isLoading,
 	}: { data: Movie[]; error: any; isLoading: boolean } = useMovieList();
 
-	if (error) {
-		console.log(error);
+	const {
+		data: user,
+		error: userError,
+		isLoading: userIsLoading,
+	}: FetcherProps = useFetchUserDetails();
+
+	const [bookMarkedMovies, setBookMarkedMovies] = useState<string[]>([]);
+	useEffect(() => {
+		if (!userIsLoading && !isLoading && user?.user?.favoriteIds) {
+			setBookMarkedMovies(user.user.favoriteIds);
+		}
+	}, [user, userIsLoading, isLoading]);
+
+	if (error || userError) {
+		console.log(error, userError);
+		return <div>Error loading movies</div>;
 	}
 	return (
 		<div>
-			{isLoading ? (
+			{isLoading || userIsLoading || !bookMarkedMovies ? (
 				<p>loading...</p>
 			) : (
 				<div className='flex flex-row flex-wrap items-center justify-center gap-4'>
 					{data.map((movie) => {
-						return <MovieCard key={movie._id} movie={movie} />;
+						return (
+							<MovieCard
+								key={movie._id}
+								movie={movie}
+								bookMarkedMovies={bookMarkedMovies}
+							/>
+						);
 					})}
 				</div>
 			)}

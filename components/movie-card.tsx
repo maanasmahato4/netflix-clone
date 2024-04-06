@@ -3,14 +3,12 @@ import { Movie } from '@/@types/api';
 import { Card } from './ui/card';
 import { Play, Heart } from 'lucide-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
-import { useFetchUserDetails } from '@/hooks/usefetchUser';
-
 interface MovieCardProps {
 	movie: Movie;
+	bookMarkedMovies: string[];
 }
 
 interface HeartIconProps {
@@ -19,54 +17,42 @@ interface HeartIconProps {
 	saved: boolean;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
-	const { data: session } = useSession({ required: true });
-
-	/* const {
-		data,
-		error,
-		isLoading,
-	}: { data: any; error: any; isLoading: boolean } = useFetchUserDetails(
-		session?.user?.email as string,
-	);
-
-	useEffect(() => {
-		if (!isLoading) {
-			console.log(data.user);
-		}
-	}, [data, isLoading]); */
-
+const MovieCard = ({ movie, bookMarkedMovies }: MovieCardProps) => {
 	const [heartIconProps, setHeartIconProps] = useState<HeartIconProps>({
 		fill: 'none',
 		color: 'white',
 		saved: false,
 	});
 
-	/* useEffect(() => {
-		if (data.favoriteIds.contains(movie._id)) {
+	useEffect(() => {
+		if (bookMarkedMovies.includes(movie._id as string)) {
 			setHeartIconProps({ fill: 'red', color: 'red', saved: true });
+		} else {
+			setHeartIconProps({ fill: 'none', color: 'white', saved: false });
 		}
-	}, [data, movie]); */
+	}, [bookMarkedMovies, movie._id]);
 
-	const handleFavorite = useCallback(
-		async (id: string) => {
-			setHeartIconProps((prev: HeartIconProps) => ({
+	const handleFavorite = async (id: string) => {
+		setHeartIconProps((prev: HeartIconProps) => {
+			return {
 				...prev,
 				fill: prev.fill === 'none' ? 'red' : 'none',
 				color: prev.color === 'white' ? 'red' : 'white',
-				saved: prev.saved === false ? true : false,
-			}));
+				saved: !prev.saved,
+			};
+		});
 
-			if (heartIconProps.saved === true) {
-				const response = await axios.post(`/api/favorites/${id}`);
-				console.log(response.status);
-			} else if (heartIconProps.saved === false) {
-				const response = await axios.delete(`/api/favorites/${id}`);
-				console.log(response.status);
+		try {
+			if (!heartIconProps.saved) {
+				await axios.post(`/api/favorites/${id}`);
+			} else {
+				await axios.delete(`/api/favorites/${id}`);
 			}
-		},
-		[heartIconProps.saved],
-	);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<Card className='group relative'>
 			<Image
@@ -76,6 +62,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
 				src={movie.thumbnailUrl}
 				alt={movie.title}
 				draggable={false}
+				priority
 			/>
 			<div className='invisible absolute top-0 flex h-full w-full items-center justify-center group-hover:visible group-hover:cursor-pointer'>
 				<Button
@@ -96,4 +83,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
 			</div>
 		</Card>
 	);
-}
+};
+
+export default MovieCard;
