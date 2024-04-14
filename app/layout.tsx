@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 	keywords:
 		'Netflix clone, movie streaming, TV shows, streaming service, watch online, Netflix alternative',
 	authors: [{ name: 'maanas mahato' }],
-	viewport: 'width=device-width, initial-scale=1.0',
 };
 
 export default function RootLayout({

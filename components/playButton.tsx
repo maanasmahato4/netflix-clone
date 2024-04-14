@@ -1,20 +1,25 @@
+import { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { Play } from 'lucide-react';
 
-interface PlayButtonProps {
+export interface PlayButtonProps {
 	id: string;
 }
 
-export default function PlayButton({ id }: PlayButtonProps) {
+const PlayButton: NextPage<PlayButtonProps> = ({ id }) => {
 	const router = useRouter();
+
 	return (
 		<Button
 			size={'sm'}
 			className='bg-slate-300'
 			onClick={() => router.push(`/movie/${id}`)}
 		>
-			<Play /> Play
+			<Play />
+			Play
 		</Button>
 	);
-}
+};
+
+export default PlayButton;
